@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Text To Braille</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" 
+     integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" 
+     crossorigin="anonymous" />
+</head>
+<body>
+     <div class="container">
+          <h3>Testing app</h3>
+     </div>
+
+     <!-- FORM -->
+     <div class="container">
+          <form action="/send" method="POST">
+            <label for="Number One">First Number</label>
+            <input
+              type="text"
+              placeholder="First Number"
+              class="u-full-width"
+              name="num1"
+            />
+    
+            <label for="Number Two">Second Number</label>
+            <input
+              type="text"
+              placeholder="Second Number"
+              class="u-full-width"
+              name="num2"
+            />
+    
+            <label for="Operation">Operation</label>
+            <select class="u-full-width" name="operation">
+              <option value="add">Add</option>
+              <option value="subtract">Subtract</option>
+              <option value="multiply">Multiply</option>
+              <option value="divide">Divide</option>
+            </select>
+    
+            <input type="submit" value="Calculate" id="calc_btn" />
+            <div class="aler">
+               {{sum}}
+               {{hop}}
+               {{t}}
+            </div>
+</body>
+</html>
