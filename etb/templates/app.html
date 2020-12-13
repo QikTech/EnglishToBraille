@@ -9,52 +9,30 @@
      crossorigin="anonymous" />
 </head>
 <body>
+<!-- UPLOAD IMAGE -->
+<div>
+  <form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" class="custom-file-input" name="image" id="image">
+    <label for="image">Select image...</label>
+    <button type="submit" class="btn btn-primary">Upload</button>
+  </form>
+</div>
+<!-- UPLOAD IMAGE END -->
+
      <div class="container">
           <h3>Testing app</h3>
      </div>
-
-     <!-- FORM -->
-     <!-- <div class="container">
-          <form action="/send" method="POST">
-            <label for="Number One">First Number</label>
-            <input
-              type="text"
-              placeholder="First Number"
-              class="u-full-width"
-              name="num1"
-            />
-    
-            <label for="Number Two">Second Number</label>
-            <input
-              type="text"
-              placeholder="Second Number"
-              class="u-full-width"
-              name="num2"
-            />
-    
-            <label for="Operation">Operation</label>
-            <select class="u-full-width" name="operation">
-              <option value="add">Add</option>
-              <option value="subtract">Subtract</option>
-              <option value="multiply">Multiply</option>
-              <option value="divide">Divide</option>
-            </select> -->
-    
-            <!-- <input type="submit" value="Show Text" id="calc_btn" />
-            <div class="aler">
-               {{sum}}
-               {{hop}}
-               {{t}}
-            </div> -->
 
             <div class="aler">
               <a href= /send>
                 <button action="/send" type="submit">Show Text</button>
               </a>
+        <br>
               <textarea>
                {{hop}}
                {{t}}
               </textarea>
             </div>
+        
 </body>
 </html>

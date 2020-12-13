@@ -1,13 +1,14 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import pytesseract as tess
 from PIL import Image
+import os
 
 # img= Image.open('text.png')
 # text = tess.image_to_string(img)
 # print (text)
 
 app = Flask(__name__)
-
+app.config['IMAGE_UPLOADS'] = "E:/Programming 0.1/MLai/Flask/English To Braille/etb/static/image/uploads"
 @app.route('/')
 def main():
      return render_template('app.html')
@@ -21,33 +22,14 @@ def show():
      print (text)
      return render_template('app.html', hop=a, t=text)
 
-     # else:
-     #      return render_template('app.html')
 
-     # if request.method == 'POST':
-     #      num1 = request.form['num1']
-     #      num2 = request.form['num2'] 
-     #      operation = request.form['operation']
-
-     # if operation == 'add':
-     #      sum = float(num1) + float(num2)
-     #      return render_template('app.html', sum=sum, hop=a, t=text)
-     # elif operation == 'substraction':
-     #      sum = float(num1) - float(num2)
-     #      return render_template('app.html', sum=sum)
-     # elif operation == 'multiply':
-     #      sum = float(num1) * float(num2)
-     #      return render_template('app.html', sum=sum)
-     # elif operation == 'divide':
-     #      sum = float(num1) / float(num2)
-     #      return render_template('app.html', sum=sum)
-     # else:
-     #      return render_template('app.html')
-     
-
-    
+@app.route("/upload", methods=("GET", "POST"))
+def upload_image():
+     if request.files:
+          image = request.files["image"]
+          image.save(os.path.join(app.config['IMAGE_UPLOADS'], image.filename))
+          print ('image saved')
+          return redirect(request.url)
 
 
-     # @app.route('/hope')
-     # def hope():
-     #      return render_template("hope.html", hop=a)
+     return render_template('app.html')
