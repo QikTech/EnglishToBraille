@@ -3,12 +3,18 @@ import pytesseract as tess
 from PIL import Image
 import os
 from werkzeug.utils import secure_filename
+# CUSTOM DEPENDENCIES
+from test1 import *
+import argparse
 
 # img= Image.open('text.png')
 # text = tess.image_to_string(img)
 # print (text)
 
 app = Flask(__name__)
+
+print(name)
+name1 = myfunc("Prasanna")
 
 # WHERE TO STORE UPLOADED IMAGE
 path = app.config['IMAGE_UPLOADS'] = "E:/Programming 0.1/MLai/Flask/English To Braille/etb/static/image/uploads/"
