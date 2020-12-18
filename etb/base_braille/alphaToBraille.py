@@ -1,6 +1,5 @@
 # Translate alphabet based text to braille.
-from etb.mapAlphaToBraille import *
-from etb.mapBrailleToAlpha import *
+from . import mapAlphaToBraille, mapBrailleToAlpha
 
 CAPITAL = chr(10272)  # ⠠
 NUMBER = chr(10300)  # ⠼
@@ -18,7 +17,7 @@ def extract_words(string):
     words = string.split(" ")
     result = []
     for word in words:
-        temp = word.splitlines(True)
+        temp = word.split("\n")
         for item in temp:
             result.append(item)
     return result
