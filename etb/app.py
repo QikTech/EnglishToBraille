@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, redirect
 import pytesseract as tess
+tess.pytesseract.tesseract_cmd  = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
 from PIL import Image
 import os
 from werkzeug.utils import secure_filename
-from base_braille import alphaToBraille, brailleToAlpha
+# from base_braille import alphaToBraille, brailleToAlpha
 
 # img= Image.open('text.png')
 # text = tess.image_to_string(img)
@@ -12,7 +13,7 @@ from base_braille import alphaToBraille, brailleToAlpha
 app = Flask(__name__)
 
 # WHERE TO STORE UPLOADED IMAGE
-path = app.config['IMAGE_UPLOADS'] = "E:/Programming 0.1/MLai/Flask/English To Braille/etb/static/image/uploads/"
+path = app.config['IMAGE_UPLOADS'] = "C:/Programming 0.1/Mlai/EnglishToBraille/etb/static/image/uploads/"
 # FILE VALIDATIONS 
 app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG","JPEG","JPG"]
 
@@ -38,8 +39,10 @@ def upload_image():
 
           else:
                filename = secure_filename(image.filename)
+               # Handeling spacebar in Image Title
                lstr_img_name = str(image.filename).replace(" ", "_")
                image.save(os.path.join(app.config['IMAGE_UPLOADS'], lstr_img_name))
+               # image.save(os.path.join(app.config['IMAGE_UPLOADS'], image.filename))
           print ('image saved ' + filename)
           global uploaded_image
           uploaded_image = filename
@@ -71,8 +74,8 @@ def show():
      # plain_text = ("kalpesh Ghangav")
      print (plain_text)
      return render_template('app.html', hop=a, t=plain_text)
-     braille = etb.base_braille.alphaToBraille.translate(plain_text)
-     print("text_translated:\n"+braille)
+     # braille = etb.base_braille.alphaToBraille.translate(plain_text)
+     # print("text_translated:\n"+braille)
 
      
 
