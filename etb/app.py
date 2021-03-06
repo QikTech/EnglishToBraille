@@ -81,10 +81,11 @@ def show():
      a= first.aaa
      
      braille = alphaToBraille.translate(plain_text)
+     print("text_scanned:\n"+plain_text)
      print("text_translated:\n"+braille)
      
      # For braille Printing
-     return render_template('app.html', hop=a, t=braille)
+     return render_template('app.html', hop=a, t=braille, pt=plain_text)
      # # For Plain Text Printing
      # return render_template('app.html', hop=a, t=plain_text)
      
