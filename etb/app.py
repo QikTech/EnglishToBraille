@@ -66,6 +66,28 @@ def allowed_image(filename):
      else:
           return False
 
+@app.route('/scan')
+# def send():
+def scan():
+     a=200
+     print("path"+str(path))
+     print("uploaded_image"+str(uploaded_image))
+     img= Image.open(path+uploaded_image,mode='r')
+     # img= Image.open('etb/static/image/uploads',uploaded_image)
+     plain_text = tess.image_to_string(img)
+     # plain_text = ("kalpesh Ghangav")
+     print (plain_text)
+     # Package Working
+     a= first.aaa
+     
+     braille = alphaToBraille.translate(plain_text)
+     print("text_scanned:\n"+plain_text)
+     # print("text_translated:\n"+braille)
+     
+     # For braille Printing
+     return render_template('app.html',pt=plain_text)
+     
+
 @app.route('/send')
 # def send():
 def show():
