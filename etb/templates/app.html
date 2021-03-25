@@ -18,7 +18,7 @@
   </form>
 </div>
 <!-- UPLOAD IMAGE END -->
-
+  <img src="{{ uploaded }}" alt="">
      <div class="container">
           <h3>Testing app</h3>
      </div>
@@ -29,16 +29,31 @@
         <button action="/scan" type="submit">Scan Image</button>
       </a>
 <br>
-      <textarea>
-        {{pt}}
-       </textarea>
+<!-- SamBam33 was here -->
+      <form action="/send" method="POST">
+        {% if ispt %}
+        <textarea name="changedtext">
+          {{ pt }}
+        </textarea>
+
+        {% elif not ispt %}
+        <textarea name="changedtext">
+          {{ et }}
+        </textarea>
+          
+          {% endif %}
+         
+         <button type="submit"></button>
+        </form>
+<!-- SamBam33 was here -->
+
     </div>
 
 
 <!-- Working Braille Printing -->
             <div class="aler">
               <a href= /send>
-                <button action="/send" type="submit">Show Text</button>
+                <button action="/send" type="submit">Show Braille Text</button>
               </a>
         <br>
               
@@ -46,10 +61,17 @@
                 {{pt}}
                </textarea>
                <textarea>
+                {{et}}
+               </textarea>
+               <textarea>
                 {{hop}}
                 {{t}}
                </textarea>
             </div>
-        
+
+            
+            <!-- <p>Test</p>
+            {{ uploaded }}
+         -->
 </body>
 </html>
