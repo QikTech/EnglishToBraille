@@ -29,7 +29,6 @@ is_plaintext = False
 def main():
      return render_template('app.html')
 
-
 @app.route("/upload", methods=("GET", "POST"))
 def upload_image():
      if request.files:
@@ -93,13 +92,13 @@ def scan():
      
      braille = alphaToBraille.translate(plain_text)
      print("text_scanned:\n"+plain_text)
-     # print("text_translated:\n"+braille)
+     print("text_translated:\n"+braille)
      
      # For braille Printing
      return render_template('app.html',pt=plain_text,uploaded=our_image)
      
 
-@app.route('/send',methods=['GET','POST'])
+@app.route('/braille_text',methods=['GET','POST'])
 # def send():
 def show():
      #SamBam33 was here
@@ -123,12 +122,13 @@ def show():
      # Package Working
      a= first.aaa
      
-     braille = alphaToBraille.translate(editedtext)
+     braille = alphaToBraille.translate(plain_text)
+     # braille = alphaToBraille.translate(editedtext)
      # print("text_scanned:\n"+editedtext)
      # print("text_translated:\n"+braille)
      
      # For braille Printing
-     return render_template('app.html', hop=a, t=braille, pt=plain_text, et=editedtext, ispt= is_plaintext)
+     return render_template('app.html', hop=a, t=braille, pt=plain_text, uploaded = our_image)
      # # For Plain Text Printing
      # return render_template('app.html', hop=a, t=plain_text)
      

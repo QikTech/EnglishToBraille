@@ -7,70 +7,68 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" 
      integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" 
      crossorigin="anonymous" />
+     <!-- <link rel="stylesheet" href="styles.css"> -->
+     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
 </head>
 <body>
 <!-- UPLOAD IMAGE -->
-<div>
-  <form action="/upload" method="POST" enctype="multipart/form-data">
-    <input type="file" class="custom-file-input" name="image" id="image">
-    <label for="image">Select image...</label>
-    <button type="submit" class="btn btn-primary">Upload</button>
-  </form>
+<div><header>English To Braille By Qiktech.dev</header></div>
+<div class="section_1">
+  <div class="p1">
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+        <div class="one">
+          <div class="one_one"><input type="file" class="custom-file-input uploader" name="image" id="image">
+          </div>
+          <!-- <label for="image">Select image...</label> -->
+          <div class="one_two"><button class="button-primary" type="submit">Upload</button></div>
+        </div>
+      </form>
+  </div>
+  <div class="p2"> <img src="{{ uploaded }}" > </div>
 </div>
 <!-- UPLOAD IMAGE END -->
-  <img src="{{ uploaded }}" alt="">
-     <div class="container">
-          <h3>Testing app</h3>
-     </div>
 
 <!-- EXPERIMENTAL  -->
-     <div class="aler">
-      <a href= /scan>
-        <button action="/scan" type="submit">Scan Image</button>
-      </a>
+     <div class="section_2 aler two">
+        <textarea class="two_one"> 
+          {{pt}}
+        </textarea>
+        <a class="two_two" href= /scan>
+          <button class="button-primary" action="/scan" type="submit">Scan Image</button>
+        </a>
 <br>
+
+    </div>
 <!-- SamBam33 was here -->
-      <form action="/send" method="POST">
+      <!-- <form action="/send" method="POST">
         {% if ispt %}
         <textarea name="changedtext">
           {{ pt }}
         </textarea>
-
         {% elif not ispt %}
         <textarea name="changedtext">
           {{ et }}
-        </textarea>
-          
-          {% endif %}
-         
+        </textarea>        
+          {% endif %}      
          <button type="submit"></button>
-        </form>
+        </form> -->
 <!-- SamBam33 was here -->
-
-    </div>
 
 
 <!-- Working Braille Printing -->
-            <div class="aler">
-              <a href= /send>
-                <button action="/send" type="submit">Show Braille Text</button>
-              </a>
-        <br>
-              
-              <textarea>
-                {{pt}}
-               </textarea>
-               <textarea>
-                {{et}}
-               </textarea>
-               <textarea>
-                {{hop}}
-                {{t}}
-               </textarea>
-            </div>
-
-            
-            <!-- <p>Test</p>
+    <div class="section_3 aler three">
+          <textarea class="three_one">
+            {{hop}}
+            {{t}}
+          </textarea>
+          <a class="three_two" href= /braille_text>
+            <button class="button-primary" action="/send" type="submit">Braille Code</button>
+          </a>
+            <!-- <textarea>
+            {{et}}
+            </textarea> -->
+    </div>           
+    <!-- <p>Test</p>
             {{ uploaded }}
          -->
 </body>
