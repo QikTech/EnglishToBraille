@@ -1,11 +1,18 @@
 from flask import Flask, render_template, request, redirect
 import pytesseract as tess
+# Dom
 tess.pytesseract.tesseract_cmd  = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
 from PIL import Image,ImageDraw, ImageFont
 import os
 from werkzeug.utils import secure_filename
 from etb_package import alphaToBraille,brailleToAlpha, first
+# import fpdf
 from fpdf import FPDF
+# fpdf.set_global("SYSTEM_TTFONTS", os.path.join(os.path.dirname(__file__),'fonts'))
+
+# img= Image.open('text.png')
+# text = tess.image_to_string(img)
+# print (text)
 
 app = Flask(__name__)
 
@@ -18,7 +25,6 @@ app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG","JPEG","JPG"]
 our_image = ""
 plain_text = None
 braille = None
-edited__text = None
 uploaded_image = None
 is_plaintext = False
 
@@ -72,19 +78,20 @@ def allowed_image(filename):
 @app.route('/scan')
 # def send():
 def scan():
-     # a=200
-     # print("path"+str(path))
-     # print("uploaded_image"+str(uploaded_image))
+     a=200
+     print("path"+str(path))
+     print("uploaded_image"+str(uploaded_image))
      img= Image.open(path+uploaded_image,mode='r')
      # img= Image.open('etb/static/image/uploads',uploaded_image)
      global plain_text
      plain_text = tess.image_to_string(img)
      # plain_text = ("kalpesh Ghangav")
-     # print (plain_text)
+     print (plain_text)
      # Package Working
-     # a= first.aaa
+     a= first.aaa
 
      # DISPLAY IMAGE
+     global our_image
      # our_image = "/static/image/uploads/" + uploaded_image
      
      # -----------------------------------------------------------TESTER
@@ -116,51 +123,73 @@ def scan():
      # #TXT GENERATION END
      
      # For braille Printing
-     global our_image
      return render_template('app.html',pt=plain_text,uploaded=our_image)
      
 
-@app.route('/braille_text',methods=['POST'])
+@app.route('/braille_text',methods=['GET','POST'])
 def show():
      #SamBam33 was here
+     global is_plaintext
+     is_plaintext = True
+     if request.method == "POST":
+          is_plaintext = False
+          editedtext = request.form['changedtext']
+          print("-------------------------------------------")
+          print(editedtext)
      #SamBam33 left here
-     edited__text = request.form['send__text']
-     # print(edited__text)
 
-     # a=200
-     # print("path"+str(path))
-     # print("uploaded_image"+str(uploaded_image))
+     a=200
+     print("path"+str(path))
+     print("uploaded_image"+str(uploaded_image))
      img= Image.open(path+uploaded_image,mode='r')
      # img= Image.open('etb/static/image/uploads',uploaded_image)
      plain_text = tess.image_to_string(img)
      # plain_text = ("kalpesh Ghangav")
-     # print (plain_text)
+     print (plain_text)
      # Package Working
-     # a= first.aaa
+     a= first.aaa
      global braille
+     braille = alphaToBraille.translate(plain_text)
+     print (braille)
+     # braille = alphaToBraille.translate(editedtext)
+     # print("text_scanned:\n"+editedtext)
+     # print("text_translated:\n"+braille)
+     
+     # #--------------------------------------------------------TXT GENERATION
+     # outfile = open('plain text.txt','w')
+     # outfile.write( braille )
+     # outfile.close()
+     # #--------------------------------------------------------TXT GENERATION END
 
-     # braille = alphaToBraille.translate(plain_text)
-     braille = alphaToBraille.translate(edited__text)
-     braille2 = str(braille).replace("\n", "").replace("?", "")
-     print (braille2)
-
+     # #--------------------------------------------------------TXT GENERATION
+     # new = Image.new('RGBA',(1080,1920),'white')
+     # # get a font
+     # fnt = ImageFont.truetype("SwellBraille.ttf", 20)
+     # d = ImageDraw.Draw(new)
+     # d.multiline_text((100,100), str(braille), fill='black',font=fnt)
+     # new.save('Plain Text.png')
+     # #--------------------------------------------------------TXT GENERATION END
+      
      # For braille Printing
-     return render_template('app.html', t=braille2, pt=edited__text, uploaded = our_image)
+     return render_template('app.html', hop=a, t=braille, pt=plain_text, uploaded = our_image)
+     # # For Plain Text Printing
+     # return render_template('app.html', hop=a, t=plain_text)
+     
 
 @app.route('/download_txt',methods=['GET','POST'])
 def download_txt():
-     global plain_text, braille, edited__text
+     global plain_text, braille
      # print(plain_text,"-----------------")
      # print(type(plain_text))
      outfile = open('plain text.txt','w',encoding="utf-8")
-     outfile.write( edited__text )
+     outfile.write( braille )
      outfile.close()
      #--------------------------------------------------------TXT GENERATION END
-     return render_template('app.html', t=edited__text, pt=plain_text, uploaded = our_image)
+     return render_template('app.html', t=braille, pt=plain_text, uploaded = our_image)
 
 @app.route('/download_img',methods=['GET','POST'])
 def download_image():
-     global plain_text, braille, edited__text
+     global plain_text, braille
      new = Image.new('RGBA',(1080,1920),'white')
      # get a font
      fnt = ImageFont.truetype("SwellBraille.ttf", 20)
@@ -168,7 +197,7 @@ def download_image():
      d.multiline_text((100,100), str(braille), fill='black',font=fnt)
      new.save('Plain Text.png')
      #--------------------------------------------------------TXT GENERATION END
-     return render_template('app.html', t=edited__text, pt=plain_text, uploaded = our_image)
+     return render_template('app.html', t=braille, pt=plain_text, uploaded = our_image)
 
 # @app.route('/download_pdf',methods=['GET','POST'])
 # def download_pdf():

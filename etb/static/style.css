@@ -37,6 +37,9 @@ textarea {
     border-radius: 20px;
     border: none;
 }
+.button-primary{
+  background-color: #00203fff;
+}
 button{
   height: 5vh;
   width: 8vw;
