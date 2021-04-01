@@ -17,7 +17,6 @@ body{
   background-color: #adefd1;
 }
 
-
 header{
   height: 6vh;
   background-color: #00203fff;
@@ -30,12 +29,11 @@ header{
   justify-content: center;
   margin-bottom: 2vh;
 }
-/* ------------------------------------------------------------------SECTION ONE */
+
 textarea {
-    width: 30vw;
-    height: 30vh;
-    border-radius: 20px;
-    border: none;
+    width: 47vw;
+    height: 39vh;
+    border-radius: 10px;
 }
 .button-primary{
   background-color: #00203fff;
@@ -50,11 +48,11 @@ button{
   align-items: center;
   justify-content: center;
   /* background-color: aqua; */
-  width: 60vw;
+  width: 45vw;
 }
-
 .one_one{
   flex: 10;
+  margin-left: 1vw;
   /* background-color: aqua; */
 }
 .one_two{
@@ -64,32 +62,57 @@ button{
 }
 .uploader{
   /* width: 100%; */
-  width: 52vw;
+  width: 38vw;
   height: 5vh;
   cursor:pointer;
-  background-color: #ffffff;
+  background-color: #001d39;
   border-radius: 10px;
   margin: 0 0 0 1vw;
   /* display: none; */
 }
-
 .section_1{
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   margin-left: 1vw;
   /* height: 8vh; */
 }
-.p2{
-  position: absolute;
-  margin-left: 62vw;
-  width: 35vw;  
-  height: 48vh;
-  border-radius: 20px;
-  border:0;
-  background-color: #ffffff;
-  border: none;
+
+.two_zero{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 47vw;
+  margin-left: 1vw;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
 }
+.text_content{
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  width: 47vw;
+  margin-right: 1vw;
+}
+.two_two{
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  justify-items: right;
+  width: 47vw;
+  
+  margin-left: 1vw;
+}
+.p2{
+  /* position: absolute; */
+  /* margin-left: 1vw; */
+  width: 47vw;  
+  height: 48vh;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
 img{
   width: 100%;
   height: 100%;
@@ -97,21 +120,84 @@ img{
   border:0;
   outline: none;
 }
-/* SECTION ONE END*/
-/* ------------------------------------------------------------------SECTION TWO */
-.two, .three{
+.BUTTONDIV{
   display: flex;
-  height: 40vh;
-  width: 61vw;
-  margin-left: 1vw;
-  margin-bottom: 2vh;
+  align-items: center;
+  justify-content: center;
+  
 }
-.two_one, .three_one{
-  flex: 10;
-  height: 40vh;
+.three_one_two{
+  height: 5vh;
+  width: 8vw;
+  
 }
-.two_two, .three_two{
-  flex: 1;
-  margin-left: 1vw;
-  margin-top: 35vh;
+
+.ELEMENT_1{
+  grid-area: ELEMENT_1;
+  order: 1;
+  width: 50vw;
+  height: 56vh;
+  /* background-color: slateblue; */
+}
+.ELEMENT_2{
+  grid-area: ELEMENT_2;
+  order: 2;
+  width: 50vw;
+  height: 32vh;
+  /* background-color: sienna; */
+  /* margin-bottom: 10vh; */
+}
+.ELEMENT_3{
+  grid-area: ELEMENT_3;
+  order: 3;
+  /* margin-left: 50vw; */
+  /* margin-top: -56vh; */
+  /* background-color: seagreen; */
+  width: 48vw;
+  height: 85vh;
+  margin: 0;
+  /* margin-left: 1vw; */
+}
+
+.SIDES{
+  display: flex;
+  flex-direction: row;
+}
+
+
+.text-center {
+  text-align: center;
+}
+.button-success,
+.button-success:focus,
+.button-success:active {
+  color: #fff;
+  background-color: #00203f;
+  border-color: #00203f;
+}
+.button-success:hover {
+  color: #fff;
+  background-color: #001d39;
+  border-color: #001d39;
+}
+.button.button-block {
+  width: 100%;
+}
+
+.push{
+  margin-top: 6vh;
+}
+
+h1{
+  color: #001d39;
+  font-weight: 900;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+h6{
+  color: #001d39;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.marg{
+  margin-right: 1vw;
 }

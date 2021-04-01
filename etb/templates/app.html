@@ -8,87 +8,125 @@
      integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" 
      crossorigin="anonymous" />
      <!-- <link rel="stylesheet" href="styles.css"> -->
+     <link  rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
 </head>
 <body>
-<!-- UPLOAD IMAGE -->
 <div><header>English To Braille By Qiktech.dev</header></div>
-<div class="section_1">
-  <div class="p1">
-      <form action="/upload" method="POST" enctype="multipart/form-data">
-        <div class="one">
-          <div class="one_one"><input type="file" class="custom-file-input uploader" name="image" id="image">
+<div class="ELEMENT_CONTAINER">
+  <div class="SIDES">
+    <!-- UPLOAD IMAGE -->
+    <div class="LEFT">
+        <section class="ELEMENT_1">
+          <div class="section_1">
+            <div class="p1">
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                  <div class="one">
+                    <div class="one_one"><input type="file" class="custom-file-input uploader" name="image" id="image">
+                    </div>
+                    <!-- <label for="image">Select image...</label> -->
+                    <div class="one_two"><button class="button-success" type="submit">Upload</button></div>
+                  </div>
+                </form>
+            </div>
+            <div class="p2"> <img src="{{ uploaded }}" > </div>
           </div>
-          <!-- <label for="image">Select image...</label> -->
-          <div class="one_two"><button class="button-primary" type="submit">Upload</button></div>
-        </div>
-      </form>
+        </section>
+
+        <section class="ELEMENT_2">
+          <div class="two_zero">
+            <a class="two_zerotwo" href= /scan>
+            <button class="button-success" action="/scan" type="submit">Scan Image</button>
+            </a>
+          </div>
+      <div class="push">
+          <div class="two_zeroone">
+            <div class="text_content">
+              <h1>English To Braille</h1>
+              <h6>by QikTech.Dev</h6>
+            </div>
+          </div>
+          <div class="two_two ">
+            <a class="three_two" href= /download_txt>
+              <button class="button-success marg" action="/send" type="submit">Download TXT</button>
+            </a>
+            <a class="three_two " href= /download_img>
+              <button class="button-success marg" action="/send" type="submit">Download Image</button>
+            </a>
+          </div>
+        </div>    
+        </section>
+    </div>
+    <div class="RIGHT">
+        <section class="ELEMENT_3">
+          <div>
+            <div class="aler three_one">
+              <form method="POST" action="/braille_text">
+                  <textarea class="three_one_one" name = "send__text"> 
+                    {{pt}}
+                  </textarea>
+                  <div class="BUTTONDIV">
+                    <a class="three_one_two" href= /braille_text>
+                      <button class="button-success" action="/braille_text" type="submit">Braille Code</button>
+                    </a>
+                </div>
+              </form>
+            </div>
+            <div>
+              <textarea class="three_two"> 
+                {{t}}
+              </textarea>
+            </div>
+          </div>
+        </section>
+    </div>
+    <div class="comments">
+        <!-- <div class="section_2 aler two">
+                  <textarea class="two_one"> 
+                    {{pt}}
+                  </textarea>
+                  <a class="two_two" href= /scan>
+                    <button class="button-primary" action="/scan" type="submit">Scan Image</button>
+                  </a>
+              </div> -->
+    <!-- SamBam33 was here -->
+          <!-- <form action="/braille_text" method="POST">
+            {% if ispt %}
+            <textarea name="changedtext">
+              {{ pt }}
+            </textarea>
+            {% elif not ispt %}
+            <textarea name="changedtext">
+              {{ et }}
+            </textarea>        
+              {% endif %}      
+            <button type="submit"></button>
+            </form> -->
+    <!-- SamBam33 was here -->
+
+
+    <!-- Working Braille Printing -->
+
+
+        <!-- <div class="section_3 aler three">
+              <textarea class="three_one">
+                {{hop}}
+                {{t}}
+              </textarea> -->
+
+
+              <!-- <a class="three_two" href= /braille_text>
+                <button class="button-primary" action="/send" type="submit">Braille Code</button>
+              </a> -->
+              
+              <!-- <a class="three_two" href= /download_pdf>
+                <button class="button-primary" action="/send" type="submit">Download PDF</button>
+              </a> -->
+                <!-- <textarea>
+                {{et}}
+                </textarea> -->
+    </div>
   </div>
-  <div class="p2"> <img src="{{ uploaded }}" > </div>
 </div>
-<!-- UPLOAD IMAGE END -->
-
-<!-- EXPERIMENTAL  -->
-     <div class="section_2 aler two">
-      <a class="two_two" href= /scan>
-        <button class="button-primary" action="/scan" type="submit">Scan Image</button>
-      </a>
-       <form method="POST" action="/braille_text">
-        <textarea class="two_one" name = "send__text"> 
-          {{pt}}
-        </textarea>
-        <a class="three_two" href= /braille_text>
-          <button class="button-primary" action="/braille_text" type="submit">Braille Code</button>
-        </a>
-        </form>
-    </div>
-     <!-- <div class="section_2 aler two">
-        <textarea class="two_one"> 
-          {{pt}}
-        </textarea>
-        <a class="two_two" href= /scan>
-          <button class="button-primary" action="/scan" type="submit">Scan Image</button>
-        </a>
-<br>
-
-    </div> -->
-<!-- SamBam33 was here -->
-      <!-- <form action="/braille_text" method="POST">
-        {% if ispt %}
-        <textarea name="changedtext">
-          {{ pt }}
-        </textarea>
-        {% elif not ispt %}
-        <textarea name="changedtext">
-          {{ et }}
-        </textarea>        
-          {% endif %}      
-         <button type="submit"></button>
-        </form> -->
-<!-- SamBam33 was here -->
-
-
-<!-- Working Braille Printing -->
-    <div class="section_3 aler three">
-          <textarea class="three_one">
-            {{hop}}
-            {{t}}
-          </textarea>
-          <!-- <a class="three_two" href= /braille_text>
-            <button class="button-primary" action="/send" type="submit">Braille Code</button>
-          </a> -->
-          <a class="three_two" href= /download_txt>
-            <button class="button-primary" action="/send" type="submit">Download TXT</button>
-          </a>
-          <a class="three_two" href= /download_img>
-            <button class="button-primary" action="/send" type="submit">Download Image</button>
-          </a>
-          <!-- <a class="three_two" href= /download_pdf>
-            <button class="button-primary" action="/send" type="submit">Download PDF</button>
-          </a> -->
-            <!-- <textarea>
-            {{et}}
-            </textarea> -->
-    </div>
 </body>
 </html>

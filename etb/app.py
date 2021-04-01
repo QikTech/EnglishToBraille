@@ -19,6 +19,7 @@ our_image = ""
 plain_text = None
 braille = None
 edited__text = None
+braille2 = None
 uploaded_image = None
 is_plaintext = False
 
@@ -138,37 +139,36 @@ def show():
      # Package Working
      # a= first.aaa
      global braille
-
+     global braille2
      # braille = alphaToBraille.translate(plain_text)
      braille = alphaToBraille.translate(edited__text)
      braille2 = str(braille).replace("\n", "").replace("?", "")
-     print (braille2)
-
+     
+     # print (braille)
+  
      # For braille Printing
      return render_template('app.html', t=braille2, pt=edited__text, uploaded = our_image)
 
 @app.route('/download_txt',methods=['GET','POST'])
 def download_txt():
-     global plain_text, braille, edited__text
+     global plain_text, braille, edited__text, braille2
      # print(plain_text,"-----------------")
      # print(type(plain_text))
      outfile = open('plain text.txt','w',encoding="utf-8")
-     outfile.write( edited__text )
+     outfile.write( braille2 )
      outfile.close()
-     #--------------------------------------------------------TXT GENERATION END
-     return render_template('app.html', t=edited__text, pt=plain_text, uploaded = our_image)
+     return render_template('app.html', t=braille2, pt=plain_text, uploaded = our_image)
 
 @app.route('/download_img',methods=['GET','POST'])
 def download_image():
-     global plain_text, braille, edited__text
+     global plain_text, braille, edited__text, braille2
      new = Image.new('RGBA',(1080,1920),'white')
      # get a font
-     fnt = ImageFont.truetype("SwellBraille.ttf", 20)
+     fnt = ImageFont.truetype("SwellBraille.ttf", 14)
      d = ImageDraw.Draw(new)
-     d.multiline_text((100,100), str(braille), fill='black',font=fnt)
+     d.multiline_text((60,60), braille, fill='black',font=fnt)
      new.save('Plain Text.png')
-     #--------------------------------------------------------TXT GENERATION END
-     return render_template('app.html', t=edited__text, pt=plain_text, uploaded = our_image)
+     return render_template('app.html', t=braille2, pt=plain_text, uploaded = our_image)
 
 # @app.route('/download_pdf',methods=['GET','POST'])
 # def download_pdf():
