@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, send_file,send_from_directory,safe_join,abort
 import pytesseract as tess
 tess.pytesseract.tesseract_cmd  = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
 from PIL import Image,ImageDraw, ImageFont
@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 from etb_package import alphaToBraille,brailleToAlpha, first
 from fpdf import FPDF
 
+
 app = Flask(__name__)
 
 # WHERE TO STORE UPLOADED IMAGE
@@ -14,6 +15,9 @@ app = Flask(__name__)
 path = app.config['IMAGE_UPLOADS'] = "C:/programming0.2/Mlai/EnglishToBraille/etb/static/image/uploads/"
 # FILE VALIDATIONS 
 app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG","JPEG","JPG"]
+app.config["CLIENT_TXT"] = "./static/client/txt"
+app.config["CLIENT_PNG"] = "./static/client/png"
+app.config["CLIENT_DOCX"] = "./static/client/docx"
 
 our_image = ""
 plain_text = None
@@ -22,6 +26,15 @@ edited__text = None
 braille2 = None
 uploaded_image = None
 is_plaintext = False
+
+"""
+@app.route('/testdownload/<test_image_name>')
+def download_testpng(test_image_name):
+     try:
+          return send_from_directory(app.config["CLIENT_PNG"],filename=test_image_name,as_attachment= True)
+     except FileNotFoundError:
+          print("File Not Found")"""
+
 
 @app.route('/')
 def main():
@@ -76,10 +89,13 @@ def scan():
      # a=200
      # print("path"+str(path))
      # print("uploaded_image"+str(uploaded_image))
-     img= Image.open(path+uploaded_image,mode='r')
+     if uploaded_image == None or uploaded_image == "":
+          return redirect("/")
+     elif uploaded_image != None or uploaded_image != "":
+          img= Image.open(path+uploaded_image,mode='r')
      # img= Image.open('etb/static/image/uploads',uploaded_image)
-     global plain_text
-     plain_text = tess.image_to_string(img)
+          global plain_text
+          plain_text = tess.image_to_string(img)
      # plain_text = ("kalpesh Ghangav")
      # print (plain_text)
      # Package Working
@@ -123,31 +139,35 @@ def scan():
 
 @app.route('/braille_text',methods=['POST'])
 def show():
-     #SamBam33 was here
-     #SamBam33 left here
-     edited__text = request.form['send__text']
-     # print(edited__text)
+     global uploaded_image
+     if uploaded_image == None or uploaded_image == "":
+          return redirect("/")
+     elif uploaded_image != None or uploaded_image != "":
+          #SamBam33 was here
+          #SamBam33 left here
+          edited__text = request.form['send__text']
+          # print(edited__text)
 
-     # a=200
-     # print("path"+str(path))
-     # print("uploaded_image"+str(uploaded_image))
-     img= Image.open(path+uploaded_image,mode='r')
-     # img= Image.open('etb/static/image/uploads',uploaded_image)
-     plain_text = tess.image_to_string(img)
-     # plain_text = ("kalpesh Ghangav")
-     # print (plain_text)
-     # Package Working
-     # a= first.aaa
-     global braille
-     global braille2
-     # braille = alphaToBraille.translate(plain_text)
-     braille = alphaToBraille.translate(edited__text)
-     braille2 = str(braille).replace("\n", "").replace("?", "")
+          # a=200
+          # print("path"+str(path))
+          # print("uploaded_image"+str(uploaded_image))
+          img= Image.open(path+uploaded_image,mode='r')
+          # img= Image.open('etb/static/image/uploads',uploaded_image)
+          plain_text = tess.image_to_string(img)
+          # plain_text = ("kalpesh Ghangav")
+          # print (plain_text)
+          # Package Working
+          # a= first.aaa
+          global braille
+          global braille2
+          # braille = alphaToBraille.translate(plain_text)
+          braille = alphaToBraille.translate(edited__text)
+          braille2 = str(braille).replace("\n", "").replace("?", "")
+          
+          # print (braille)
      
-     # print (braille)
-  
-     # For braille Printing
-     return render_template('app.html', t=braille2, pt=edited__text, uploaded = our_image)
+          # For braille Printing
+          return render_template('app.html', t=braille2, pt=edited__text, uploaded = our_image)
 
 @app.route('/download_txt',methods=['GET','POST'])
 def download_txt():
@@ -168,7 +188,40 @@ def download_image():
      d = ImageDraw.Draw(new)
      d.multiline_text((60,60), braille, fill='black',font=fnt)
      new.save('Plain Text.png')
+    
+     
      return render_template('app.html', t=braille2, pt=plain_text, uploaded = our_image)
+
+
+@app.route('/test_download',methods=['GET','POST'])
+def test_download():
+     global plain_text, braille, edited__text, braille2,uploaded_image
+     if uploaded_image == None or uploaded_image == "":
+          return redirect("/")
+     elif uploaded_image != None or uploaded_image != "":
+          download_filename = request.form["filename"]
+          download_filetype = request.form["download"]
+          print(download_filename,download_filetype)
+
+          if download_filetype == "PNG":
+               
+               new = Image.new('RGBA',(1080,1920),'white')
+               # get a font
+               fnt = ImageFont.truetype("SwellBraille.ttf", 14)
+               d = ImageDraw.Draw(new)
+               d.multiline_text((60,60), braille, fill='black',font=fnt)
+               new.save("./static/client/png/"+download_filename+'.png')
+               return send_from_directory(app.config["CLIENT_PNG"],filename=download_filename+".png",as_attachment= True)
+          
+               # return render_template('app.html', t=braille2, pt=plain_text, uploaded = our_image)
+          elif download_filetype == "TXT":
+               # print(plain_text,"-----------------")
+               # print(type(plain_text))
+               outfile = open("./static/client/txt/"+download_filename+'.txt','w',encoding="utf-8")
+               outfile.write( braille2 )
+               outfile.close()
+               return send_from_directory(app.config["CLIENT_TXT"],filename=download_filename+".txt",as_attachment= True)
+               # return render_template('app.html', t=braille2, pt=plain_text, uploaded = our_image)
 
 # @app.route('/download_pdf',methods=['GET','POST'])
 # def download_pdf():

@@ -22,10 +22,12 @@
             <div class="p1">
                 <form action="/upload" method="POST" enctype="multipart/form-data">
                   <div class="one">
-                    <div class="one_one"><input type="file" class="custom-file-input uploader" name="image" id="image">
+                    <div class="one_one">
+                      <input type="file" class="custom-file-input uploader" name="image" id="image">
                     </div>
                     <!-- <label for="image">Select image...</label> -->
-                    <div class="one_two"><button class="button-success" type="submit">Upload</button></div>
+                    <div class="one_two">
+                      <button class="button-success" type="submit">Upload</button></div>
                   </div>
                 </form>
             </div>
@@ -39,6 +41,9 @@
             <button class="button-success" action="/scan" type="submit">Scan Image</button>
             </a>
           </div>
+
+
+
       <div class="push">
           <div class="two_zeroone">
             <div class="text_content">
@@ -46,17 +51,37 @@
               <h6>by QikTech.Dev</h6>
             </div>
           </div>
-          <div class="two_two ">
+          
+          <div class="two_two">
+          <form action="/test_download" method="POST">
+            <label for="filename">File name:</label>
+            <input type="text" id="filename" name="filename"><br><br>
+            
+
+            <label for="download_file">Select File Type</label>
+            <select name="download" id="download">
+              <option value="PNG" name="png">PNG</option>
+              <option value="TXT" name="txt">TXT</option>
+              <option value="DOCX" name="docx">DOCX</option>
+            </select>
+            <input type="submit" value="Submit">
+          
+            </form>
+          </div>
+          <!-- <div class="two_two ">
             <a class="three_two" href= /download_txt>
               <button class="button-success marg" action="/send" type="submit">Download TXT</button>
             </a>
             <a class="three_two " href= /download_img>
-              <button class="button-success marg" action="/send" type="submit">Download Image</button>
-            </a>
-          </div>
+                <button class="button-success marg" action="/send" type="submit">Download Image</button>
+            </a>  
+          </div> -->
         </div>    
         </section>
     </div>
+
+
+
     <div class="RIGHT">
         <section class="ELEMENT_3">
           <div>
