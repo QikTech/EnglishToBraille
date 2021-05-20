@@ -11,6 +11,7 @@
      <link  rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
 </head>
+
 <body>
 <div><header>English To Braille By Qiktech.dev</header></div>
 <div class="ELEMENT_CONTAINER">
@@ -52,22 +53,28 @@
             </div>
           </div>
           
-          <div class="two_two">
-          <form action="/test_download" method="POST">
-            <label for="filename">File name:</label>
-            <input type="text" id="filename" name="filename"><br><br>
+          <div >
+          <form action="/test_download" class="two_two" method="POST">
+            <div class="download1">
+              <label for="filename">File name:</label>
+              <input type="text" id="filename" name="filename"><br><br>
+            </div>
             
-
-            <label for="download_file">Select File Type</label>
-            <select name="download" id="download">
-              <option value="PNG" name="png">PNG</option>
-              <option value="TXT" name="txt">TXT</option>
-              <option value="DOCX" name="docx">DOCX</option>
-            </select>
-            <input type="submit" value="Submit">
+            <div class="download2">
+              <label for="download_file" >Select File Type</label>
+              <select name="download" id="download">
+                <option value="PNG" name="png">PNG</option>
+                <option value="TXT" name="txt">TXT</option>
+                <option value="DOCX" name="docx">DOCX</option>
+              </select>
+              <button type="submit" class="button-success" value="Download">Download</button>
+            </div>
           
             </form>
           </div>
+
+
+          <!-- OLD BUTTONS -->
           <!-- <div class="two_two ">
             <a class="three_two" href= /download_txt>
               <button class="button-success marg" action="/send" type="submit">Download TXT</button>
@@ -98,7 +105,7 @@
               </form>
             </div>
             <div>
-              <textarea class="three_two"> 
+              <textarea readonly class="three_two"> 
                 {{t}}
               </textarea>
             </div>

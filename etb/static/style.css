@@ -97,13 +97,19 @@ button{
 }
 .two_two{
   display: flex;
-  align-items: center;
-  justify-content: right;
-  justify-items: right;
+  flex-direction: row;
+  align-items: stretch;
   width: 47vw;
-  
-  margin-left: 1vw;
+    margin-left: 25vw;
+
 }
+
+.download2{
+  margin-left: 1vw;
+  margin-bottom: 5vh;
+}
+
+
 .p2{
   /* position: absolute; */
   /* margin-left: 1vw; */
@@ -185,7 +191,7 @@ img{
 }
 
 .push{
-  margin-top: 6vh;
+  margin-top: 3vh;
 }
 
 h1{
@@ -201,3 +207,4 @@ h6{
 .marg{
   margin-right: 1vw;
 }
+

@@ -6,6 +6,7 @@ import os
 from werkzeug.utils import secure_filename
 from etb_package import alphaToBraille,brailleToAlpha, first
 from fpdf import FPDF
+from docx import Document
 
 
 app = Flask(__name__)
@@ -44,9 +45,9 @@ def main():
 def upload_image():
      if request.files:
           image = request.files["image"]
-          print(image)
-          
-          print("image:  "+str(image))
+          # Check Image Upload True
+          # print(image)
+          # print("image:  "+str(image))
           if image.filename == "":
                print("image must have a name")
                return redirect(request.url)
@@ -61,11 +62,12 @@ def upload_image():
                lstr_img_name = str(image.filename).replace(" ", "_")
                image.save(os.path.join(app.config['IMAGE_UPLOADS'], lstr_img_name))
                # image.save(os.path.join(app.config['IMAGE_UPLOADS'], image.filename))
-          print(type(filename))
-          print ('image saved ' + filename)
+          # Check
+          # print(type(filename))
+          # print ('image saved ' + filename)
           global uploaded_image
           uploaded_image = filename
-          print(uploaded_image)
+          # print(uploaded_image)
           global our_image
           our_image = "/static/image/uploads/" + uploaded_image
           return redirect(request.url)          
@@ -188,10 +190,15 @@ def download_image():
      d = ImageDraw.Draw(new)
      d.multiline_text((60,60), braille, fill='black',font=fnt)
      new.save('Plain Text.png')
-    
-     
      return render_template('app.html', t=braille2, pt=plain_text, uploaded = our_image)
 
+@app.route('/download_word', methods=['GET','POST'])
+def download_word():
+     global plain_text, braille, edited__text, braille2
+     document = Document()
+     document.add_paragraph(braille2)
+     document.save('test2.docx')
+     return render_template('app.html', t=braille2, pt=plain_text, uploaded = our_image)
 
 @app.route('/test_download',methods=['GET','POST'])
 def test_download():
@@ -201,7 +208,8 @@ def test_download():
      elif uploaded_image != None or uploaded_image != "":
           download_filename = request.form["filename"]
           download_filetype = request.form["download"]
-          print(download_filename,download_filetype)
+          # Check
+          # print(download_filename,download_filetype)
 
           if download_filetype == "PNG":
                
@@ -222,6 +230,13 @@ def test_download():
                outfile.close()
                return send_from_directory(app.config["CLIENT_TXT"],filename=download_filename+".txt",as_attachment= True)
                # return render_template('app.html', t=braille2, pt=plain_text, uploaded = our_image)
+          
+          elif download_filetype == "DOCX":
+               
+               document = Document()
+               document.add_paragraph(braille2)
+               document.save("./static/client/docx/"+download_filename+'.docx')
+               return send_from_directory(app.config["CLIENT_DOCX"],filename=download_filename+".docx",as_attachment= True)
 
 # @app.route('/download_pdf',methods=['GET','POST'])
 # def download_pdf():
