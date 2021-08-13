@@ -6,7 +6,7 @@ Aim is to develop a interpreter to convert English to Braille system
 
 Many valuable paper documents are usually scanned and kept as images for backup. Extracting text from the images is quite helpful and thus a need for some tool for this extraction is always there. One of the important applications of this tool is its use in Braille Translation. Braille has been the primary writing and reading system used by the visually impaired since the 19th century. This application that extracts text from images and then converts it to Braille will prove to be quite useful for converting old valuable documents or books into Braille format.
 
-[Published Paper](https://www.ijream.org/IJREAM_V07I02SP.html) - [Download Here](ijream.org/papers/IJREAMV07I02SJ019.pdf)
+[Published Paper](https://www.ijream.org/IJREAM_V07I02SP.html) - [Download Here](http://ijream.org/papers/IJREAMV07I02SJ019.pdf)
 
 # Screenshots
 ![](https://i.pinimg.com/originals/67/3e/de/673edeef7aa7031f5b7c48b60fd995f3.jpg)
