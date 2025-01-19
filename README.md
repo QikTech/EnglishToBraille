@@ -1,5 +1,5 @@
 # EnglishToBraille
-Aim is to develop a interpreter to convert English to Braille system
+Aim is to develop a interpreter to convert English Text to Braille system
 
 
 # Abstract
